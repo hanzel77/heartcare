@@ -1,1 +1,1 @@
-export const api_link = 'http://localhost:5000/api'
+export const api_link = 'https://heartcare-backend-production.up.railway.app/api'
