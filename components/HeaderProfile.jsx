@@ -33,8 +33,8 @@ const styles = StyleSheet.create({
     },
     dropdown: {
         position: 'absolute',
-        top: 50, // Adjust based on the profile icon size and padding
-        right: 15, // Adjust alignment relative to the profile icon
+        top: 50, 
+        right: 15,
         backgroundColor: 'white',
         borderRadius: 8,
         paddingVertical: 5,
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.3,
         shadowRadius: 4,
         elevation: 5,
-        zIndex: 1000, // Ensure the dropdown appears above other UI elements
+        zIndex: 1000, 
     },
     dropdownItem: {
         paddingVertical: 10,

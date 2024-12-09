@@ -6,6 +6,7 @@ import useAuthState from '@/hooks/useAuthState';
 import { useFocusEffect } from '@react-navigation/native';
 import { useRouter } from 'expo-router';
 
+
 export default function Reports() {
     const { user, loading } = useAuthState();
 

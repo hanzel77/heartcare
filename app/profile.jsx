@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Alert, StyleSheet, Text,  Picker, ScrollView, TouchableOpacity } from 'react-native';
+import { Alert, StyleSheet, Text,  Picker, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { app } from '@/FirebaseConfig';
 import { getAuth } from 'firebase/auth';
 import { useRouter } from 'expo-router';
@@ -31,6 +31,8 @@ const EditProfile = () => {
     const [arthritis, setArthritis] = useState(false);
     const [depression, setDepression] = useState(false);
 
+    const [saving, setSaving] = useState(false);
+
     useEffect(() => {
         if (userData) {
             setAge(userData[0].age?.toString() || '');
@@ -48,6 +50,7 @@ const EditProfile = () => {
     }, [userData]);
 
     const handleSave = async () => {
+        setSaving(true);
         try {
             const response = await fetch(`${api_link}/user/${auth.currentUser.uid}`, {
                 method: 'PUT',
@@ -77,6 +80,8 @@ const EditProfile = () => {
         } catch (error) {
             console.error('Error updating profile:', error);
             Alert.alert('Failed to update profile. Please try again.');
+        } finally{
+            setSaving(false);
         }
     };
 
@@ -143,8 +148,12 @@ const EditProfile = () => {
                 onValueChange={setDepression}
             />
 
-            <TouchableOpacity onPress={handleSave} style={styles.button}>
-                <Text style={styles.buttonText}>Save Changes</Text>
+            <TouchableOpacity onPress={handleSave} style={styles.button} disabled={saving}>
+                {saving ? (
+                    <ActivityIndicator size="small" color="#fff" />
+                ) : (
+                    <Text style={styles.buttonText}>Save Changes</Text>
+                )}
             </TouchableOpacity>
 
         </ScrollView>

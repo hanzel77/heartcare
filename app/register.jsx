@@ -36,10 +36,13 @@ const Register = () => {
                     password: password
                 })
             })
-            .then(response => console.log(response.json()))
+            
+            .then(response => {
+                console.log(response.json())
+                router.push({ pathname: '/', params: { refresh: true } });
+            })
             .catch(error => console.error(error));
 
-            router.push('/');
         }).catch((error)=>{
             alert(error)
         }).finally(()=>{

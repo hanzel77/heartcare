@@ -1,6 +1,6 @@
 import { api_link } from '@/api';
 import React, { useState, useEffect } from 'react';
-import { Text, TouchableOpacity, StyleSheet, ScrollView, Alert, Picker } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Alert, Picker } from 'react-native';
 import { useRouter } from 'expo-router';
 import useUserData from '@/hooks/useUserData';
 import LoadingScreen from '@/components/LoadingScreen';
@@ -83,6 +83,29 @@ export default function Predict() {
         }
     };
 
+    const handleCompleteProfile = () => {
+        router.push('/profile');
+    };
+
+    const isProfileIncomplete = () => {
+        if (!userData || userData.length === 0) return true;
+
+        const requiredFields = [
+            'age', 'sex', 'height_cm', 'weight_kg',
+            'smoking_history', 'skin_cancer',
+            'other_cancer', 'diabetes',
+            'arthritis', 'depression'
+        ];
+        
+        console.log(userData[0])
+
+        return requiredFields.some(field =>{
+                const value = userData[0][field];
+                return value === null || value === undefined || value === '';
+            }
+        )
+    };
+
     if (loading || userLoading) {
         return (
             <LoadingScreen />
@@ -93,6 +116,23 @@ export default function Predict() {
         return <Text style={styles.errorText}>Error: {error.message}</Text>;
     }
 
+    if (isProfileIncomplete()) {
+        return (
+            <View style={styles.container}>
+                <Text style={styles.title}>Complete Your Profile</Text>
+                <Text style={styles.description}>
+                    Please complete your profile to access health risk prediction.
+                </Text>
+                <TouchableOpacity
+                    style={styles.completeProfileButton}
+                    onPress={handleCompleteProfile}
+                >
+                    <Text style={styles.completeProfileButtonText}>Complete Profile</Text>
+                </TouchableOpacity>
+            </View>
+        );
+    }
+
     return (
         <ScrollView style={styles.container}>
             <Text style={styles.title}>Health Risk Prediction</Text>
@@ -101,7 +141,6 @@ export default function Predict() {
             </Text>
 
 
-            {/* General Health */}
 
             <InputPicker selectedValue={formData.General_Health} onValueChange={(value) => handleChange('General_Health', value)} title="General Health">
                 <Picker.Item label="Select Health Status" value="unknown" />
@@ -113,7 +152,6 @@ export default function Predict() {
             </InputPicker>
 
 
-            {/* Checkup */}
 
             <InputPicker selectedValue={formData.Checkup}
                 style={styles.picker}
@@ -127,7 +165,6 @@ export default function Predict() {
             </InputPicker>
 
 
-            {/* Exercise */}
             <InputText
                 title="Exercise (times/week)"
                 placeholder="Enter exercise frequency"
@@ -136,7 +173,6 @@ export default function Predict() {
                 onChangeText={(value) => handleChange('Exercise', value)}
             />
 
-            {/* Alcohol Consumption */}
             <InputText
                 title="Alcohol Consumption (times/week)"
                 placeholder="Enter alcohol consumption frequency"
@@ -145,7 +181,6 @@ export default function Predict() {
                 onChangeText={(value) => handleChange('Alcohol_Consumption', value)}
             />
 
-            {/* Fruit Consumption */}
             <InputText
                 title="Fruit Consumption (times/week)"
                 placeholder="Enter fruit consumption frequency"
@@ -154,7 +189,6 @@ export default function Predict() {
                 onChangeText={(value) => handleChange('Fruit_Consumption', value)}
             />
 
-            {/* Green Vegetables Consumption */}
             <InputText
                 title="Green Vegetables Consumption (times/week)"
                 placeholder="Enter green vegetables consumption frequency"
@@ -163,7 +197,6 @@ export default function Predict() {
                 onChangeText={(value) => handleChange('Green_Vegetables_Consumption', value)}
             />
 
-            {/* Fried Potato Consumption */}
             <InputText
                 title="Fried Potato Consumption (times/week)"
                 placeholder="Enter fried potato consumption frequency"
@@ -172,7 +205,6 @@ export default function Predict() {
                 onChangeText={(value) => handleChange('FriedPotato_Consumption', value)}
             />
 
-            {/* Predict Button */}
             <TouchableOpacity style={styles.predictButton} onPress={handlePredict}>
                 <Text style={styles.predictButtonText}>Predict</Text>
             </TouchableOpacity>
@@ -226,6 +258,18 @@ const styles = StyleSheet.create({
         marginTop: 20,
     },
     predictButtonText: {
+        color: '#fff',
+        fontSize: 18,
+        fontWeight: 'bold',
+    },
+    completeProfileButton: {
+        backgroundColor: '#dc3545',
+        padding: 15,
+        borderRadius: 10,
+        alignItems: 'center',
+        marginTop: 20,
+    },
+    completeProfileButtonText: {
         color: '#fff',
         fontSize: 18,
         fontWeight: 'bold',

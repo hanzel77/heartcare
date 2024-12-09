@@ -1,5 +1,6 @@
 import { api_link } from '@/api';
 import { useState, useEffect } from 'react';
+import { Alert } from 'react-native';
 
 const useUserData = (userId) => {
     const [userData, setUserData] = useState(null);
@@ -11,7 +12,6 @@ const useUserData = (userId) => {
 
         const fetchUserData = async () => {
             try {
-                console.log(`${api_link}/user/${userId}`)
                 const response = await fetch(`${api_link}/user/${userId}`);
                 if (!response.ok) {
                     throw new Error(`Error: ${response.status}`);
@@ -19,7 +19,7 @@ const useUserData = (userId) => {
                 const data = await response.json();
                 setUserData(data);
             } catch (err) {
-                console.error('Error fetching user data:', err);
+                Alert.alert("Error fetching user data, Please try again!");
                 setError(err);
             } finally {
                 setLoading(false);
