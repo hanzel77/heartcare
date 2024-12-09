@@ -1,4 +1,5 @@
-import { View, Picker, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
+import { Picker } from '@react-native-picker/picker';
 import InputTitle from "./InputTitle";
 
 export default function InputPicker({ title, selectedValue, onValueChange, children }) {

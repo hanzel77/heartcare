@@ -1,6 +1,7 @@
 import { api_link } from '@/api';
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Alert, Picker } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Alert } from 'react-native';
+import { Picker } from '@react-native-picker/picker';
 import { useRouter } from 'expo-router';
 import useUserData from '@/hooks/useUserData';
 import LoadingScreen from '@/components/LoadingScreen';

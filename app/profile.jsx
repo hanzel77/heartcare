@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Alert, StyleSheet, Text,  Picker, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { Alert, StyleSheet, Text, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { Picker } from '@react-native-picker/picker';
 import { app } from '@/FirebaseConfig';
 import { getAuth } from 'firebase/auth';
 import { useRouter } from 'expo-router';
