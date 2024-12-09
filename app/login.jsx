@@ -20,10 +20,11 @@ const Login = () => {
 
   const handleLogin = async () => {
     setLoading(true)
-    signInWithEmailAndPassword(auth, email, password).then(()=>{
-      router.push('/')
+    signInWithEmailAndPassword(auth, email, password)
+    .then(()=>{
+      router.push('/');
     }).catch((e)=>{
-      Alert.alert(e);
+      alert(e);
     }).finally(()=>{
       setLoading(false);
     })
