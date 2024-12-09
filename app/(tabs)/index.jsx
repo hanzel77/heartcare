@@ -43,7 +43,7 @@
 
           {/* Navigation Menu */}
           <View style={styles.navMenuRow}>
-            <NavigationMenuItem nav_link='/checkup' icon='medkit-outline' text='Check Up'/>
+            <NavigationMenuItem nav_link='/checkup' icon='medkit-outline' text='Articles'/>
             <NavigationMenuItem nav_link='/reports' icon='document-text-outline' text='Reports'/>
           </View>
 
