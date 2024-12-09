@@ -11,6 +11,7 @@ const useUserData = (userId) => {
 
         const fetchUserData = async () => {
             try {
+                console.log(`${api_link}/user/${userId}`)
                 const response = await fetch(`${api_link}/user/${userId}`);
                 if (!response.ok) {
                     throw new Error(`Error: ${response.status}`);

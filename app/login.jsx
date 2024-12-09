@@ -19,13 +19,11 @@ const Login = () => {
   const auth = getAuth(app)
 
   const handleLogin = async () => {
-    Alert.alert('Login', 'Login button clicked');
     setLoading(true)
     signInWithEmailAndPassword(auth, email, password).then(()=>{
       router.push('/')
-      console.log("login successful")
     }).catch((e)=>{
-      alert(e)
+      Alert.alert(e);
     }).finally(()=>{
       setLoading(false);
     })
